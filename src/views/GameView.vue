@@ -39,27 +39,29 @@ export default {
   computed: {
     ...mapGetters(['selectedPokemons']),
     sortedPokemons() {
-      return this.selectedPokemons.sort(({letterIndex: a}, {letterIndex: b}) => {
-        return a - b;
+      const result = this.selectedPokemons.sort((a, b) => {
+        return a.letterIndex - b.letterIndex;
       });
+
+      this.setSortedPokemons(result);
+      return this.selectedPokemons;
     },
-    smallestPokemon(){
-      return this.selectedPokemons.sort(({height: a}, {height: b}) => {
-        return a - b;
+    smallestPokemon() {
+      return this.selectedPokemons.sort((a, b) => {
+        return a.height - b.height;
       });
     }
   },
   data() {
     return {
       alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
-
     }
   },
   mounted() {
     this.sumLetterIndexes();
   },
   methods: {
-    ...mapActions(['removePokemon']),
+    ...mapActions(['removePokemon', 'setSortedPokemons']),
     startGame() {
       this.removePokemon(this.smallestPokemon[0].id)
     },
