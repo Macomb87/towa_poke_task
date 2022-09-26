@@ -54,16 +54,17 @@
 import axios from "axios";
 import PokeCard from "@/components/pokeCard";
 import {mapActions, mapGetters} from "vuex";
-
+import {paginate} from "@/helpers/paginate";
+import {searchFilter} from "@/helpers/search";
 export default {
   name: 'Home',
   components: {PokeCard},
   computed: {
     ...mapGetters(['pokemons', 'selectedPokemons']),
     filteredList() {
-      return this.paginate(this.pokemons.filter(pokemon => {
-        return pokemon.name.toLowerCase().includes(this.search.toLowerCase())
-      }), 10, this.page)
+      const filteredList = searchFilter(this.pokemons,this.search);
+      this.pagination.length = Math.ceil(filteredList.length / 10);
+      return paginate(filteredList, 10, this.page)
     },
   },
   data() {
@@ -97,10 +98,6 @@ export default {
   },
   methods: {
     ...mapActions(['setPokemons']),
-    paginate(array, page_size, page_number) {
-      this.pagination.length = Math.ceil(array.length / page_size);
-      return array.slice((page_number - 1) * page_size, page_number * page_size);
-    },
     async nextPage(page) {
       this.page = page;
     },
