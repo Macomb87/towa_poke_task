@@ -32,7 +32,8 @@ export default new Vuex.Store({
         },
         removePokemon({commit}, pokemonId) {
             commit("REMOVE_POKEMON", pokemonId)
-        }
+        },
+
     },
     modules: {}
 })

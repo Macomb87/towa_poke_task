@@ -7,7 +7,6 @@
           :src=" pokemonImage ?? 'https://dummyimage.com/374x374/ffffff/eff0f7.png&text=??'"
       ></v-img>
       <v-card-title>
-        {{ checkbox }}
         <v-checkbox
             :label="pokemon.name "
             v-model="checkbox"
