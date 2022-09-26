@@ -61,9 +61,6 @@ export default {
   methods: {
     ...mapActions(['removePokemon']),
     startGame() {
-      console.log('test');
-     console.log(this.smallestPokemon)
-
       this.removePokemon(this.smallestPokemon[0].id)
     },
     sumLetterIndexes() {
